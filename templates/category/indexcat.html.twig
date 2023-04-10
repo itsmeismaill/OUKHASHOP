@@ -1,0 +1,52 @@
+
+
+
+
+{% extends 'base.html.twig' %}
+{% block title%} Categories{% endblock %}
+{% block body %}
+{# <div class=" row no-padding">
+  <p class="alert alert-warning d-flex justify-content-center"><b>There are <strong style="color:#ff9966;">{{ Category|length }}</strong>  Categories in total!</b></p>
+ </div> #}
+{% for message in app.flashes('edited') %}
+     <div class="alert alert-success col no-padding">
+       {{ message }}
+      </div>
+ {% endfor %}
+{% for message in app.flashes('success') %}
+     <div class="alert alert-success">
+       {{ message }}
+      </div>
+ {% endfor %}
+{% for message in app.flashes('danger') %}
+ <div class="alert alert-danger">
+ {{ message }}
+    </div>
+{% endfor %}
+{% if categories %}
+ <table id="categories" class="table table-striped">
+ <thead>
+ <tr>
+ <th>Name</th>
+ <th>Actions</th>
+ </tr>
+ </thead>
+ <tbody>
+ {% for category in categories %}
+ <tr>
+ <td>{{ category.name }}</td>
+ <td>
+ <a href="/category/{{category.id}}" class="btn btn-success">Products</a>
+ <a href="/category/edit/{{ category.id }}" class="btn btn-dark">Edit</a>
+ <a href="/category/delete/{{ category.id }}" class="btn btn-danger" onclick="return confirm('Do you want to delete {{category.name}}?')">Delete</a>
+
+  </td>
+ </tr>
+ {% endfor %}
+ </tbody>
+ </table>
+ {% else %}
+ <p>Aucun Category</p>
+ {% endif %}
+{% endblock %}
+

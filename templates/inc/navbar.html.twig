@@ -1,0 +1,26 @@
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark" style="box-shadow: 0px 2px 5px rgba(0,0,0,0.5)">
+<div class="container d-flex">
+<a href="{{path('home')}}" class="navbar-brand mr-auto p-2">OUKHA-SHOP</a>
+ <button class="navbar-toggler" type="button" datatoggle="collapse" data-target="#mobile-nav">
+ <span class="navbar-toggle-icon"></span>
+ </button>
+ <div class="collapse navbar-collapse d-flex justify-content-end" id="mobile-nav">
+ <ul class="navbar-nav ml-auto ">
+ </li>
+ <li class="nav-item d-flex justify-content-end">
+<a href="{{ path('app_product')}}" class="nav-link">All Products</a>
+ </li>
+ <li class="nav-item d-flex justify-content-end">
+<a href="{{ path('new_product')}}" class="nav-link">Add New Product</a>
+</li>
+ <li class="nav-item d-flex justify-content-end">
+<a href="{{ path('new_category')}}" class="nav-link">Add New Category</a>
+ </li>
+  <li class="nav-item d-flex justify-content-end">
+<a href="{{ path('app_category')}}" class="nav-link">All Categories</a>
+ </li>
+ </ul>
+ </div>
+</div>
+</nav>

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Add Category{% endblock %}
+{% block body %}
+{{ form_start(form) }}
+              <div class="form-group">
+               {{ form_label(form.name) }}
+               {{ form_widget(form.name) }}
+               <div style="color:red;"><b>{{form_errors(form.name) }}</b></div>
+              <div class="form-group " >
+               {{ form_row(form.save) }}
+              </div>
+
+        {{ form_end(form) }}
+        </div >
+{% endblock %}
