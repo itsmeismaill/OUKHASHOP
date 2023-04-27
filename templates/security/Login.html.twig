@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OUKHA-SHOP - CONNEXION{% endblock %}
+
+{% block body %}
+<div class="container">
+<h1 class="mt-4">Formulaire de Connexion</h1>
+<form action="{{path('security.login')}}" method:"post">
+    <div class="form-group">
+      <label for="username" class="form-label mt-4">Adresse Email</label>
+      <input type="email" class="form-control" id="username" name="_username" placeholder="test@oukhashop.ma">
+      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+    </div>
+    <div class="form-group">
+      <label for="password" class="form-label mt-4">Mot de passe</label>
+      <input type="password" class="form-control" id="password" name="_password" placeholder="*********">
+    </div>
+    <button  type="submit" class="btn btn-primary mt-4">Se Connecter</button>
+
+</form> 
+
+</div>
+
+{% endblock %}
