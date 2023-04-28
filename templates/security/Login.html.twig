@@ -5,10 +5,15 @@
 {% block body %}
 <div class="container">
 <h1 class="mt-4">Formulaire de Connexion</h1>
-<form action="{{path('security.login')}}" method:"post">
+ {% if error %}
+    <div class="alert alert-dismissible alert-danger">
+ {{ error.messageKey|trans(error.messageData, 'security') }}
+</div>
+    {% endif %}
+<form action="{{path('security.login')}}" method="post">
     <div class="form-group">
       <label for="username" class="form-label mt-4">Adresse Email</label>
-      <input type="email" class="form-control" id="username" name="_username" placeholder="test@oukhashop.ma">
+      <input type="email" class="form-control" id="username" name="_username" placeholder="test@oukhashop.ma" value="{{last_username}}">
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     <div class="form-group">
