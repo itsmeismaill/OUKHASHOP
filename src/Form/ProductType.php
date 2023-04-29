@@ -18,11 +18,19 @@ use App\Entity\Category;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ProductType extends AbstractType
-{
+{  private $token;
+
+    public function __construct(TokenStorageInterface $token)
+    {
+       $this->token = $token;
+    }
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        
         $builder
             ->add('name', TextType::class,[
                 'attr'=>[
@@ -47,16 +55,21 @@ class ProductType extends AbstractType
                     'class'=>'form-control'
                 ]
             ])
+            
             ->add('category',EntityType::class,[
                 'class' => Category::class,
                 'choice_label' => 'name',
                 'placeholder'=>'Categories',
                 'attr'=>[
                     'class'=>'form-control'
-                   
-                ]
+                ],
+                'query_builder'=>function(\App\Repository\CategoryRepository $r){
+                    return $r->createQueryBuilder('i')
+                    ->where('i.user = :user')
+                    ->setParameter('user',$this->token->getToken()->getUser());
+                }
                 ]);
-    }
+    }   
 
     public function configureOptions(OptionsResolver $resolver): void
     {

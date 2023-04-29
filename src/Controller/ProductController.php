@@ -56,8 +56,7 @@ class ProductController extends AbstractController
     }
     #[Route('/product/edit/{id}', name:'edit_product', methods:['GET','POST'])]
  public function edit(Request $request,EntityManagerInterface $entityManager,Product $product) {
-    
-    $form = $this->createForm(ProductType::class, $product);
+    $form = $this->createForm(ProductType::class);
    
     $form->handleRequest($request);
    
