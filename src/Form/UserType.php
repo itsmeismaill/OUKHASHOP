@@ -15,10 +15,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
-
-class RegistrationType extends AbstractType
+class UserType extends AbstractType
 {
-   
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
@@ -51,57 +49,7 @@ class RegistrationType extends AbstractType
                  new Assert\Length(['min'=>2 , 'max'=>50 ])
                 ]
             ])
-            ->add('email', EmailType::class,[
-                'attr'=>[
-                    'class'=>'form-control',
-                    'minlenght'=>'2',
-                    'maxlenght'=>'180'
-                ],
-                'label'=>'Email',
-                'label_attr'=>[
-                    'class'=>'form_label'
-                ],
-                'constraints'=>[
-                    new Assert\NotBlank(),
-                    new Assert\Email(),
-                 new Assert\Length(['min'=>2 , 'max'=>180])
-                ]
-            ])
-            ->add('password',RepeatedType::class,[
-                'type'=>PasswordType::class,
-                'first_options'=>[
-                  'attr'=>[
-                    'class'=>'form-control',
-                    'minlenght'=>'2',
-                    'maxlenght'=>'180'
-                  ],
-                  'label'=>'Mot de passe',
-                  'label_attr'=>[
-                    'class'=>'form-label'
-                  ]
-                ],
-                'constraints'=>[
-                    new Assert\NotBlank(),
-                 
-                 new Assert\Length(['min'=>2 , 'max'=>180])
-                ],
-                'second_options'=>[
-                    'attr'=>[
-                        'class'=>'form-control',
-                        'minlenght'=>'2',
-                        'maxlenght'=>'180'
-                      ],
-                      'label'=>'Confirmer mot de passe',
-                      'label_attr'=>[
-                        'class'=>'form-label'
-                      ]
-                ],
-                'constraints'=>[
-                    new Assert\NotBlank(),
-                 new Assert\Length(['min'=>2 , 'max'=>180])
-                ],
-                'invalid_message'=>'les mots de passes ne se correspondent pas.'
-            ])
+
             ->add('Submit',SubmitType::Class,[
                 'attr'=>[
                     'class'=>'btn btn-dark'

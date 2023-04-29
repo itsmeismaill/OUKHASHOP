@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}OUKHA-SHOP Edition{% endblock %}
+
+{% block body %}
+{% for message in app.flashes('edited') %}
+     <div class="alert alert-success col no-padding">
+       {{ message }}
+      </div>
+ {% endfor %}
+{% for message in app.flashes('success') %}
+     <div class="alert alert-success">
+       {{ message }}
+      </div>
+ {% endfor %}
+{% for message in app.flashes('danger') %}
+ <div class="alert alert-danger">
+ {{ message }}
+    </div>
+{% endfor %}
+<div class="container">
+<h1 class="mt-4">Formulaire de Modification</h1>
+{{form(form)}}
+</div>
+{% endblock %}

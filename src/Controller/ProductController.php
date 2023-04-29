@@ -20,7 +20,7 @@ class ProductController extends AbstractController
     #[Route('/product', name: 'app_product')]
     public function index(EntityManagerInterface $entitymanager): Response
     {   
-        $products=$entitymanager->getRepository(Product::class)->findAll();
+        $products=$entitymanager->getRepository(Product::class)->findBy(['user'=>$this->getUser()]);
         if (!$products) {
             throw $this->createNotFoundException(
                 'No product found in the our DATABASE !'
@@ -42,7 +42,7 @@ class ProductController extends AbstractController
    
     if($form->isSubmitted() && $form->isValid()) {
     $product = $form->getData();
-   
+    $product->setUser($this->getUser());
     $entityManager->persist($product);
     $entityManager->flush();
     $this->addFlash(

@@ -10,6 +10,21 @@
  {{ error.messageKey|trans(error.messageData, 'security') }}
 </div>
     {% endif %}
+{% for message in app.flashes('edited') %}
+     <div class="alert alert-success col no-padding">
+       {{ message }}
+      </div>
+ {% endfor %}
+{% for message in app.flashes('success') %}
+     <div class="alert alert-success">
+       {{ message }}
+      </div>
+ {% endfor %}
+{% for message in app.flashes('danger') %}
+ <div class="alert alert-danger">
+ {{ message }}
+    </div>
+{% endfor %}
 <form action="{{path('security.login')}}" method="post">
     <div class="form-group">
       <label for="username" class="form-label mt-4">Adresse Email</label>

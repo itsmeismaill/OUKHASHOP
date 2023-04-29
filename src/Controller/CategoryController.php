@@ -21,10 +21,10 @@ class CategoryController extends AbstractController
     #[Route('/category', name: 'app_category')]
     public function index(EntityManagerInterface $entitymanager): Response
     {   
-        $categories=$entitymanager->getRepository(Category::class)->findAll();
+        $categories=$entitymanager->getRepository(Category::class)->findBy(['user'=>$this->getUser()]);
         if (!$categories) {
             throw $this->createNotFoundException(
-                'No product found in the our DATABASE !'
+                'No Category found in the our DATABASE !'
             );
         }
 
@@ -43,7 +43,7 @@ class CategoryController extends AbstractController
    
     if($form->isSubmitted() && $form->isValid()) {
     $category = $form->getData();
-   
+    $category->setUser($this->getUser());
     $entityManager->persist($category);
     $entityManager->flush();
     $this->addFlash(
