@@ -14,7 +14,8 @@ class UserController extends AbstractController
 {
     #[Route('/user/edit/{id}', name: 'user.edit', methods:['GET','POST'])]
     public function edit(User $user,Request $request ,EntityManagerInterface $entityManager): Response
-    {
+    {   
+        
          if(!$this->getUser()){
             return $this->redirectToRoute('security.login');
          }
@@ -24,7 +25,6 @@ class UserController extends AbstractController
          $form=$this->createForm(UserType::class,$user);
          $form->handleRequest($request);
          if($form->isSubmitted() && $form->isValid()) {
-           
             $user = $form->getData();
             $entityManager->persist($user);
             $entityManager->flush();

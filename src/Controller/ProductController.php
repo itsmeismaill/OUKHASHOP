@@ -37,9 +37,7 @@ class ProductController extends AbstractController
  public function new(Request $request,EntityManagerInterface $entityManager) {
     $product = new Product();
     $form = $this->createForm(ProductType::class, $product);
-   
     $form->handleRequest($request);
-   
     if($form->isSubmitted() && $form->isValid()) {
     $product = $form->getData();
     $product->setUser($this->getUser());
@@ -56,12 +54,11 @@ class ProductController extends AbstractController
     }
     #[Route('/product/edit/{id}', name:'edit_product', methods:['GET','POST'])]
  public function edit(Request $request,EntityManagerInterface $entityManager,Product $product) {
-    $form = $this->createForm(ProductType::class);
-   
+    $form = $this->createForm(ProductType::class,$product);
     $form->handleRequest($request);
-   
     if($form->isSubmitted() && $form->isValid()) {
     $product = $form->getData();
+    $product->setUser($this->getUser());
     $entityManager->persist($product);
     $entityManager->flush();
     $this->addFlash(
@@ -76,7 +73,7 @@ class ProductController extends AbstractController
     #[Route('/product/delete/{id}', name: 'product_delete' , methods:['GET','POST'])]
     public function deleteP(Product $product,EntityManagerInterface $entityManager){
 
-
+         
         $entityManager->remove($product);
         $entityManager->flush();
         $this->addFlash(
@@ -103,10 +100,10 @@ public function details(Product $product): Response
 
 
 }
-#[Route('/', name: 'home')]
-public function home1(): Response
-{   
+// #[Route('/', name: 'home')]
+// public function home1(): Response
+// {   
 
-    return $this->render('home.html.twig');
-}
+//     return $this->render('home.html.twig');
+// }
 }

@@ -18,14 +18,23 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class SecurityController extends AbstractController
 {
     
-    #[Route('/connexion', name: 'security.login', methods:['GET','POST'])]
+    #[Route('/', name: 'security.login', methods:['GET','POST'])]
      public function login(AuthenticationUtils $authenticationUtils): Response
     { 
+            // if user is already authenticated, redirect to home page
+          if ($this->getUser()) {
+            $this->addFlash(
+                'success',
+                'You Are Connected Successfully!'
+             );
+             return $this->redirectToRoute('home');
+    }
         // get the login error if there is one
          $error = $authenticationUtils->getLastAuthenticationError();
 
          // last username entered by the user
          $lastUsername = $authenticationUtils->getLastUsername();
+        
         return $this->render('/security/Login.html.twig', [
              'last_username' => $lastUsername,
              'error'         => $error,
@@ -34,7 +43,7 @@ class SecurityController extends AbstractController
     #[Route('/deconnexion', name: 'security.logout', methods:['GET','POST'])] 
     public function logout()
     {
-
+        return $this->redirectToRoute('security.login');
     }
     #[Route('/inscription', name: 'security.registration', methods:['GET','POST'])]
     public function registration(Request $request,UserPasswordHasherInterface $passwordHasher,EntityManagerInterface $entityManager):Response
