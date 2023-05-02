@@ -5,37 +5,17 @@
   </head>
   <div class="container d-flex">
   {% if app.user %}
-    <a href="{{path('home')}}" class="navbar-brand mr-auto p-2">OUKHA-SHOP</a>
+    <a href="{{path('home2')}}" class="navbar-brand mr-auto p-2">OUKHA-SHOP</a>
     <button class="navbar-toggler" type="button" datatoggle="collapse" data-target="#mobile-nav">
       <span class="navbar-toggle-icon"></span>
     </button>
     <div class="collapse navbar-collapse d-flex justify-content-end" id="mobile-nav">
       <ul class="navbar-nav ml-auto">
-<li class="nav-item">
-  <a href="{{ path('app_product')}}" class="nav-link">
-    <i class="fas fa-shopping-basket"></i>
-    All Products
-  </a>
-</li>
-      <li class="nav-item">
-    <a href="{{ path('new_product')}}" class="nav-link">
-        <i class="fas fa-plus-square"></i>
-        Add New Product
-    </a>
-</li>
-        <li class="nav-item">
-  <a href="{{ path('app_category')}}" class="nav-link">
-    <i class="fas fa-th-list"></i> All Categories
-  </a>
-</li>
-      <li class="nav-item">
-  <a href="{{ path('new_category')}}" class="nav-link">
-    <i class="fas fa-plus-square"></i>
-    Add New Category
-  </a>
-</li>
+ <li class="nav-item">
+          <a href="#" class="nav-link"><i class="fas fa-shopping-cart"></i></a>
+        </li>
        <li class="nav-item d-flex justify-content-end">
-    <a href="{{ path('home2')}}" class="nav-link" data-toggle="tooltip" title="Switch To Buyer"><i class="fas fa-exchange-alt"></i></a>
+    <a href="{{ path('home')}}" class="nav-link" data-toggle="tooltip" title="Switch To Seller"><i class="fas fa-exchange-alt"></i></a>
        </li>
         <li class="nav-item dropdown">
       <a href="#" class="nav-link dropdown-toggle" id="user-dropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

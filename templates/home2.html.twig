@@ -1,0 +1,108 @@
+{% extends 'baseb.html.twig' %}
+{% block body %}
+{% for message in app.flashes('edited') %}
+     <div class="alert alert-success col no-padding">
+       {{ message }}
+      </div>
+ {% endfor %}
+{% for message in app.flashes('success') %}
+     <div class="alert alert-success">
+       {{ message }}
+      </div>
+ {% endfor %}
+{% for message in app.flashes('danger') %}
+ <div class="alert alert-danger">
+ {{ message }}
+    </div>
+{% endfor %}
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to Our E-commerce Store</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <style>
+    .jumbotron {
+      background-image: url("images/545755.jpg");
+      {# background-color: red; #}
+      background-size: cover;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .jumbotron h1 {
+      font-size: 48px;
+      font-weight: bold;
+      text-align: center;
+      /* Animation de rotation */
+      animation: rotate 2s linear infinite;
+    }
+
+    .jumbotron p {
+      font-size: 18px;
+      text-align: center;
+      /* Animation de zoom */
+      animation: zoom 1s ease-in-out infinite;
+    }
+
+    .cta-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    .cta-button a {
+      /* Animation de clignotement */
+      animation: blink 1s linear infinite;
+    }
+
+    /* Animation de rotation */
+
+    /* Animation de zoom */
+    @keyframes zoom {
+      0% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1);
+      }
+    }
+
+    /* Animation de clignotement */
+    @keyframes blink {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0.8;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Welcome to Our OUKHA-SHOP</h1>
+      <p>Shop the latest trends in fashion, electronics, home decor, and more!</p>
+      <div class="cta-button">
+        <a href="{{ path('app_productb')}}" class="btn btn-dark">Show products</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="mt-5 text-center">
+    <p>&copy; 2023 Our OUKHA-SHOP Store. All rights reserved</p>
+  </footer>
+{% endblock %}

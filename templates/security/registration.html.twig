@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block title %}OUKHA-SHOP - INSCRIPTION{% endblock %}
 {% block body %}
+<a href="#" onclick="history.back();" class="btn">
+  <i class="fas fa-arrow-left"></i>
+  <span class="sr-only">Retour</span>
+</a>
 <div class="container">
 <h1 class="mt-4">Formulaire d'inscription</h1>
 {{form(form)}}

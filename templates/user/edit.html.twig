@@ -3,6 +3,10 @@
 {% block title %}OUKHA-SHOP Edition{% endblock %}
 
 {% block body %}
+<a href="#" onclick="history.back();" class="btn">
+  <i class="fas fa-arrow-left"></i>
+  <span class="sr-only">Retour</span>
+</a>
 {% for message in app.flashes('edited') %}
      <div class="alert alert-success col no-padding">
        {{ message }}

@@ -1,6 +1,10 @@
 {% extends 'base.html.twig' %}
 {% block title %}Ajouter Produit{% endblock %}
 {% block body %}
+<a href="#" onclick="history.back();" class="btn">
+  <i class="fas fa-arrow-left"></i>
+  <span class="sr-only">Retour</span>
+</a>
 {{ form_start(form) }}
               <div class="form-group">
                {{ form_label(form.name) }}

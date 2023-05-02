@@ -5,6 +5,14 @@
 {% extends 'base.html.twig' %}
 {% block title%} Liste des Produits{% endblock %}
 {% block body %}
+<a href="#" onclick="history.back();" class="btn">
+  <i class="fas fa-arrow-left"></i>
+  <span class="sr-only">Retour</span>
+</a>
+<a href="#" onclick="history.back();" class="btn">
+  <i class="fas fa-arrow-left"></i>
+  <span class="sr-only">Retour</span>
+</a>
 <div class=" row no-padding">
   <p class="alert alert-warning d-flex justify-content-center"><b>There are <strong style="color:#ff9966;">{{ products|length }}</strong>  products in Total!</b></p>
  </div>

@@ -33,6 +33,32 @@ class ProductController extends AbstractController
         ]);
 
     }
+    #[Route('/productb', name: 'app_productb')]
+    public function indexb(EntityManagerInterface $entityManager): Response
+    {   
+        $products = $entityManager->getRepository(Product::class)->findAll();
+        if (!$products) {
+            throw $this->createNotFoundException(
+                'No products found in the database!'
+            );
+        }
+        $productsWithUser = [];
+        foreach ($products as $product) {
+            $user = $product->getUser();
+            $pseudo = $user ? $user->getPseudo() : 'N/A';
+            $productsWithUser[] = [
+                'product' => $product,
+                'pseudo' => $pseudo,
+            ];
+        }
+    
+        return $this->render('product/indexb.html.twig', [
+            'productsWithUser' => $productsWithUser,
+            'controller_name' => 'ProductController'
+        ]);
+    }
+    
+
     #[Route('/product/new', name:'new_product', methods:['GET','POST'])]
  public function new(Request $request,EntityManagerInterface $entityManager) {
     $product = new Product();
@@ -90,6 +116,14 @@ class ProductController extends AbstractController
 
    
 }
+#[Route('/home2', name: 'home2')]
+public function Home2(): Response
+{   
+
+    return $this->render('home2.html.twig');
+
+
+}
 #[Route('/product/details/{id}', name: 'details')]
 public function details(Product $product): Response
 {   
@@ -100,10 +134,27 @@ public function details(Product $product): Response
 
 
 }
-// #[Route('/', name: 'home')]
-// public function home1(): Response
-// {   
+#[Route('/product/detailsb/{id}', name: 'detailsb')]
+public function detailsb(Product $product): Response
+{   
 
-//     return $this->render('home.html.twig');
+    return $this->render('product\detailsb.html.twig',[
+        'product'=>$product,
+    ]);
+
+
+}
+// #[Route('/cart/add/{id}', name: 'cart_add')]
+// public function addToCart(Product $product, CartService $cartService): Response
+// {
+//     $cartService->add($product);
+
+//     $this->addFlash(
+//         'success',
+//         'The product '.$product->getName().' was added to your cart!'
+//     );
+
+//     return $this->redirectToRoute('app_product2');
 // }
+
 }
