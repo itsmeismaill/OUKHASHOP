@@ -5,6 +5,8 @@
 {% extends 'base.html.twig' %}
 {% block title%} Liste des Produits{% endblock %}
 {% block body %}
+<style>
+</style>
 <a href="#" onclick="history.back();" class="btn">
   <i class="fas fa-arrow-left"></i>
   <span class="sr-only">Retour</span>
@@ -46,7 +48,7 @@
  <tr>
  <td>{{ product.name }}</td>
  <td>{{ product.price }}</td>
- <td><img src="{{asset(product.imgPath)}}" width="50" height="50"></td> <!-- Affichage de l'image -->
+ <td><img src="{{asset('/images/' ~ product.brochureFilename)}}" width="50" height="50"></td> <!-- Affichage de l'image -->
  <td>
  <a href="/product/details/{{ product.id }}" class="btn btn-success">Details</a>
  <a href="/product/edit/{{ product.id }}" class="btn btn-dark">Edit</a>

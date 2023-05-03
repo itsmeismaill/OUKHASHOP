@@ -24,9 +24,6 @@ class Product
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $description = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $imgPath = null;
-
     #[ORM\ManyToOne(inversedBy: 'product')]
     private ?Category $category = null;
 
@@ -75,18 +72,6 @@ class Product
         return $this;
     }
 
-    public function getImgPath(): ?string
-    {
-        return $this->imgPath;
-    }
-
-    public function setImgPath(?string $imgPath): self
-    {
-        $this->imgPath = $imgPath;
-
-        return $this;
-    }
-
     public function getCategory(): ?Category
     {
         return $this->category;
@@ -107,6 +92,20 @@ class Product
     public function setUser(?User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+    #[ORM\Column(type: 'string')]
+    private $brochureFilename;
+
+    public function getBrochureFilename(): string
+    {
+        return $this->brochureFilename;
+    }
+
+    public function setBrochureFilename(string $brochureFilename): self
+    {
+        $this->brochureFilename = $brochureFilename;
 
         return $this;
     }

@@ -22,10 +22,10 @@
                {{ form_widget(form.description) }}
               <div style="color:red;"><b>{{form_errors(form.description) }}</b></div>
               </div> 
-              <div class="form-group">
-               {{ form_label(form.imgPath) }}
-               {{ form_widget(form.imgPath) }}
-              <div style="color:red;"><b>{{form_errors(form.imgPath) }}</b></div>
+               <div class="form-group">
+               {{ form_label(form.brochure) }}
+               {{ form_row(form.brochure) }}
+              <div style="color:red;"><b>{{form_errors(form.brochure) }}</b></div>
               </div>
               <div class="form-group">
                {{ form_label(form.category) }}

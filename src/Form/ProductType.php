@@ -20,6 +20,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 class ProductType extends AbstractType
 {  private $token;
@@ -50,11 +52,6 @@ class ProductType extends AbstractType
             ->add('save', SubmitType::class, ['label' => 'SAVE', 'attr'=>[
                 'class'=>'btn btn-primary mt-4'
             ]] )
-            ->add('imgPath',TextType::class,[
-                'attr'=>[
-                    'class'=>'form-control'
-                ]
-            ])
             
             ->add('category',EntityType::class,[
                 'class' => Category::class,
@@ -68,6 +65,31 @@ class ProductType extends AbstractType
                     ->where('i.user = :user')
                     ->setParameter('user',$this->token->getToken()->getUser());
                 }
+                ])
+                ->add('brochure', FileType::class, [
+                    'label' => 'image',
+    
+                    // unmapped means that this field is not associated to any entity property
+                    'mapped' => false,
+    
+                    // make it optional so you don't have to re-upload the PDF file
+                    // every time you edit the Product details
+                    'required' => false,
+    
+                    // unmapped fields can't define their validation using annotations
+                    // in the associated entity, so you can use the PHP constraint classes
+                    'constraints' => [
+                        new File([
+                            'maxSize' => '4024k',
+                            'mimeTypes' => [
+                                'image/png',
+                                'image/jpg',
+                                'image/jpeg',
+                                'image/gif',
+                            ],
+                            'mimeTypesMessage' => 'Please upload a valid image',
+                        ])
+                    ],
                 ]);
     }   
 

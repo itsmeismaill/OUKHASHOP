@@ -22,11 +22,6 @@ class CategoryController extends AbstractController
     public function index(EntityManagerInterface $entitymanager): Response
     {   
         $categories=$entitymanager->getRepository(Category::class)->findBy(['user'=>$this->getUser()]);
-        if (!$categories) {
-            throw $this->createNotFoundException(
-                'No Category found in the our DATABASE !'
-            );
-        }
 
         return $this->render('category\indexcat.html.twig', [
             'categories' => $categories,
