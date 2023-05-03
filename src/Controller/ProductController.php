@@ -1,8 +1,6 @@
 <?php
 
 namespace App\Controller;
-use App\Repository\ProductRepository;
-use App\Repository\CategoryRepository;
 use App\Entity\Product;
 use App\Entity\Category;
 use App\Form\ProductType;
@@ -146,7 +144,6 @@ public function detailsb(Product $product): Response
 
 
 }
-
 // #[Route('/cart/add/{id}', name: 'cart_add')]
 // public function addToCart(Product $product, CartService $cartService): Response
 // {
