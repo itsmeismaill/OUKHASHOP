@@ -65,7 +65,7 @@ a {
       <a href="{{ path('detailsb', {id: product.product.id}) }}" class="card-link">
         <div class="card shadow-sm">
         <div class="image">
-            <img src="{{ asset('/images/' ~ product.brochureFilename)}}" class="card-img-top" alt="Product Image">
+            <img src="{{ asset('/images/' ~ product.product.brochureFilename)}}" class="card-img-top" alt="Product Image">
             </div>
             <div class="card-body">
                 <h5 class="card-title">{{ product.product.name }}</h5>

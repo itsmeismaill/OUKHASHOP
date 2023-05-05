@@ -77,7 +77,10 @@ class ProductController extends AbstractController
                                 $newFilename
                             );
                         } catch (FileException $e) {
-                            // ... handle exception if something happens during file upload
+                            $this->addFlash(
+                                'danger',
+                                'file not accepted!'
+                             );
                         }
         
                         // updates the 'brochureFilename' property to store the PDF file name

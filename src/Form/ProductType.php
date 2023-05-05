@@ -68,6 +68,10 @@ class ProductType extends AbstractType
                 ])
                 ->add('brochure', FileType::class, [
                     'label' => 'image',
+                    'attr'=>[
+                        'class'=>'form-control'
+                    ],
+                    'label' => 'image',
     
                     // unmapped means that this field is not associated to any entity property
                     'mapped' => false,
