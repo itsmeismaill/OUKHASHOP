@@ -1,0 +1,70 @@
+{% extends 'baseb.html.twig' %}
+
+{% block title %}Purchases{% endblock %}
+
+{% block body %}
+    <a href="#" onclick="history.back();" class="btn">
+        <i class="fas fa-arrow-left"></i>
+        <span class="sr-only">Retour</span>
+    </a>
+    <div class=" row no-padding">
+        <p class="alert alert-warning d-flex justify-content-center"><b>You have made <strong
+                        style="color:#ff9966;">{{ purchases|length }}</strong> purchases in total!</b></p>
+    </div>
+
+    {% for message in app.flashes('edited') %}
+        <div class="alert alert-success col no-padding">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('danger') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% if purchases %}
+        <table id="purchases" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Picture</th> <!-- Nouvelle colonne pour l'image -->
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Date</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for purchase in purchases %}
+                <tr>
+                    <td>{{ purchase.product.name }}</td>
+                    <td><img src="{{ asset(purchase.product.imgPath) }}" width="50" height="50"></td>
+                    <!-- Affichage de l'image -->
+                    <td>{{ purchase.quantity }}</td>
+                    <td>{{ purchase.product.price }} × {{ purchase.quantity }}
+                        = {{ purchase.product.price*purchase.quantity }} dh
+                    </td>
+                    <td>{{ purchase.date|date('d/m/Y') }}</td>
+                    <td>
+                        <a href="/purchase/delete/{{ purchase.id }}" class="btn btn-danger"
+                           onclick="return confirm('Do you want to delete {{ purchase.product.name }} from purchase history?')">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+            <div class="m-1">
+                <a href="/purchase/delete" class="btn btn-success">Delete all</a>
+            </div>
+        </div>
+    {% else %}
+        <p>Aucun produit</p>
+    {% endif %}
+{% endblock %}

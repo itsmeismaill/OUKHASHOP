@@ -1,59 +1,60 @@
-
-
-
-
 {% extends 'base.html.twig' %}
-{% block title%} Liste des Produits{% endblock %}
+{% block title %} Liste des Produits{% endblock %}
 {% block body %}
-<a href="#" onclick="history.back();" class="btn">
-  <i class="fas fa-arrow-left"></i>
-  <span class="sr-only">Retour</span>
-</a>
-<div class=" row no-padding">
-  <p class="alert alert-warning d-flex justify-content-center"><b>There are <strong style="color:#ff9966;">{{ products|length }}</strong>  products in total!</b></p>
- </div>
-{% for message in app.flashes('edited') %}
-     <div class="alert alert-success col no-padding">
-       {{ message }}
-      </div>
- {% endfor %}
-{% for message in app.flashes('success') %}
-     <div class="alert alert-success">
-       {{ message }}
-      </div>
- {% endfor %}
-{% for message in app.flashes('danger') %}
- <div class="alert alert-danger">
- {{ message }}
+    <a href="#" onclick="history.back();" class="btn">
+        <i class="fas fa-arrow-left"></i>
+        <span class="sr-only">Retour</span>
+    </a>
+    <div class=" row no-padding">
+        <p class="alert alert-warning d-flex justify-content-center"><b>There are <strong
+                        style="color:#ff9966;">{{ products|length }}</strong> products in total!</b></p>
     </div>
-{% endfor %}
-{% if products %}
- <table id="products" class="table table-striped">
- <thead>
- <tr>
- <th>Name</th>
- <th>Price</th>
- <th>Picture</th> <!-- Nouvelle colonne pour l'image -->
- <th>Actions</th>
- </tr>
- </thead>
- <tbody>
- {% for product in products %}
- <tr>
- <td>{{ product.name }}</td>
- <td>{{ product.price }} Dhs</td>
- <td><img src="{{asset(product.imgPath)}}" width="50" height="50"></td> <!-- Affichage de l'image -->
- <td>
- <a href="/product/details/{{ product.id }}" class="btn btn-success">Details</a>
- <a href="/product/edit/{{ product.id }}" class="btn btn-dark">Edit</a>
- <a href="/product/delete/{{ product.id }}" class="btn btn-danger" onclick="return confirm('Do you want to delete {{product.name}}?')">Delete</a>
 
-  </td>
- </tr>
- {% endfor %}
- </tbody>
- </table>
- {% else %}
- <p>Aucun produit</p>
- {% endif %}
+    {% for message in app.flashes('edited') %}
+        <div class="alert alert-success col no-padding">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('danger') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% if products %}
+        <table id="products" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Picture</th> <!-- Nouvelle colonne pour l'image -->
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }} Dhs</td>
+                    <td><img src="{{ asset(product.imgPath) }}" width="50" height="50"></td>
+                    <!-- Affichage de l'image -->
+                    <td>
+                        <a href="/product/details/{{ product.id }}" class="btn btn-success">Details</a>
+                        <a href="/product/edit/{{ product.id }}" class="btn btn-dark">Edit</a>
+                        <a href="/product/delete/{{ product.id }}" class="btn btn-danger"
+                           onclick="return confirm('Do you want to delete {{ product.name }}?')">Delete</a>
+
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Aucun produit</p>
+    {% endif %}
 {% endblock %}

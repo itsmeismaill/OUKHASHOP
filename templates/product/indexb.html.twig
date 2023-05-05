@@ -3,41 +3,45 @@
 {% block body %}
 
 
-<style>
-.card-body {
-    text-align: center;
-}
-.col {
-    width: 25%;
+    <style>
+        .card-body {
+            text-align: center;
+        }
 
-}
-.price {
-  font-size: 1.2rem;
-  font-weight: bold;
-  color: #FF5733;
-}
-.image:hover .card-img-top {
-  transform: scale(1.1);
-  transition: transform 0.3s ease-in-out;
-  transform-origin: center;
-}
+        .col {
+            width: 25%;
 
-a {
-    color: black;
-}
+        }
 
-a {
-    text-decoration: none;
-}
-.card:hover {
-  transform: scale(1.05);
-  transition: transform 0.3s ease-in-out;
-}
-</style>
-<a href="#" onclick="history.back();" class="btn">
-  <i class="fas fa-arrow-left"></i>
-  <span class="sr-only">Retour</span>
-</a>
+        .price {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #FF5733;
+        }
+
+        .image:hover .card-img-top {
+            transform: scale(1.1);
+            transition: transform 0.3s ease-in-out;
+            transform-origin: center;
+        }
+
+        a {
+            color: black;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
+    <a href="#" onclick="history.back();" class="btn">
+        <i class="fas fa-arrow-left"></i>
+        <span class="sr-only">Retour</span>
+    </a>
     <div class="container">
         {% for message in app.flashes('edited') %}
             <div class="alert alert-success col-12">
@@ -59,39 +63,40 @@ a {
 
         <div class="row row-cols-1 row-cols-md-3 g-4">
             {% if productsWithUser %}
-   {% for product in productsWithUser %}
-    <div class="col">
-      <a href="{{ path('detailsb', {id: product.product.id}) }}" class="card-link">
-        <div class="card shadow-sm">
-        <div class="image">
-            <img src="{{ asset(product.product.imgPath) }}" class="card-img-top" alt="Product Image">
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">{{ product.product.name }}</h5>
-                {% if product.product.category %}
-                    <p class="card-text"><small class="text-muted">{{ product.product.category.name }}</small></p>
-                {% endif %}
-                <p class="price">{{ product.product.price }} DHS</p>
-                <p class="card-text">Seller: {{ product.pseudo }}</p>
-                 
-                {# <form method="POST" action="{{ path('add_to_cart') }}"> #}
-                    <div class="form-group mb-3">
-                        <label for="quantity">Quantity:</label>
-                        </a>
-                        <input type="number" class="form-control" id="quantity" name="quantity" min="1" max="100" value="1" required>
-                    </div>
-                
+                {% for product in productsWithUser %}
+                    <div class="col">
+                        <a href="{{ path('detailsb', {id: product.product.id}) }}" class="card-link">
+                            <div class="card shadow-sm">
+                                <div class="image">
+                                    <img src="{{ asset(product.product.imgPath) }}" class="card-img-top"
+                                         alt="Product Image">
+                                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ product.product.name }}</h5>
+                                    {% if product.product.category %}
+                                        <p class="card-text"><small
+                                                    class="text-muted">{{ product.product.category.name }}</small></p>
+                                    {% endif %}
+                                    <p class="price">{{ product.product.price }} DHS</p>
+                                    <p class="card-text">Seller: {{ product.pseudo }}</p>
 
-                    <input type="hidden" name="product_id" value="{{ product.product.id }}">
-                    <button type="submit" class="btn btn-dark">Add to Cart</button>
-                   
-                {# </form> #}
-                 <a href="{{ path('detailsb', {id: product.product.id}) }}" class="card-link">
-            </div>
-        </div>
-         </a>
-    </div>
-{% endfor %}
+                                    <form method="POST" action="{{ path('add_to_cart') }}">
+                                        <div class="form-group mb-3">
+                                            <label for="quantity_{{ product.product.id }}">Quantity:</label>
+                                            <input type="number" class="form-control"
+                                                   id="quantity_{{ product.product.id }}" name="quantity"
+                                                   min="1"
+                                                   max="100" value="1" required>
+                                            <input type="hidden" name="product_id" value="{{ product.product.id }}">
+                                        </div>
+                                        <button type="submit" class="btn btn-dark">Add to Cart</button>
+                                    </form>
+                                    <a href="{{ path('detailsb', {id: product.product.id}) }}" class="card-link"></a>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
 
             {% else %}
                 <div class="col">
