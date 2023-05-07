@@ -44,7 +44,7 @@
             {% for purchase in purchases %}
                 <tr>
                     <td>{{ purchase.product.name }}</td>
-                    <td><img src="{{ asset(purchase.product.imgPath) }}" width="50" height="50"></td>
+                    <td><img src="{{ asset('/images/' ~ purchase.product.brochureFilename) }}" width="50" height="50"></td>
                     <!-- Affichage de l'image -->
                     <td>{{ purchase.quantity }}</td>
                     <td>{{ purchase.product.price }} × {{ purchase.quantity }}

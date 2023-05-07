@@ -43,7 +43,7 @@
             {% for cart_item in cart_items %}
                 <tr>
                     <td>{{ cart_item.product.name }}</td>
-                    <td><img src="{{ asset(cart_item.product.imgPath) }}" width="50" height="50"></td>
+                    <td><img src="{{ asset('/images/' ~ cart_item.product.brochureFilename) }}" width="50" height="50"></td>
                     <!-- Affichage de l'image -->
                     <td>{{ cart_item.quantity }}</td>
                     <td>{{ cart_item.product.price }} × {{ cart_item.quantity }} = {{ cart_item.product.price*cart_item.quantity }} dh</td>
