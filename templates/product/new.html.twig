@@ -1,21 +1,21 @@
 {% extends 'base.html.twig' %}
 {% block title %}Ajouter Produit{% endblock %}
 {% block body %}
-<a href="#" onclick="history.back();" class="btn">
-  <i class="fas fa-arrow-left"></i>
-  <span class="sr-only">Retour</span>
-</a>
-{{ form_start(form) }}
-              <div class="form-group">
-               {{ form_label(form.name) }}
-               {{ form_widget(form.name) }}
-               <div style="color:red;"><b>{{form_errors(form.name) }}</b></div>
-              </div>     
-             <div class="form-group">
-               {{ form_label(form.price) }}
-               {{ form_widget(form.price) }}
-               <div style="color:red;"><b>{{form_errors(form.price) }}</b></div>
-              </div>
+    <a href="#" onclick="history.back();" class="btn">
+        <i class="fas fa-arrow-left"></i>
+        <span class="sr-only">Retour</span>
+    </a>
+    {{ form_start(form) }}
+    <div class="form-group">
+        {{ form_label(form.name) }}
+        {{ form_widget(form.name) }}
+        <div style="color:red;"><b>{{ form_errors(form.name) }}</b></div>
+    </div>
+    <div class="form-group">
+        {{ form_label(form.price) }}
+        {{ form_widget(form.price) }}
+        <div style="color:red;"><b>{{ form_errors(form.price) }}</b></div>
+    </div>
 
              <div class="form-group">
                {{ form_label(form.description) }}
@@ -36,6 +36,6 @@
                {{ form_row(form.save) }}
               </div>
 
-        {{ form_end(form) }}
-        </div >
+    {{ form_end(form) }}
+    </div >
 {% endblock %}

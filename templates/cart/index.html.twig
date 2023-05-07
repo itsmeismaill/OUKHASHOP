@@ -1,0 +1,69 @@
+{% extends 'baseb.html.twig' %}
+
+{% block title %}Cart{% endblock %}
+
+{% block body %}
+    <a href="#" onclick="history.back();" class="btn">
+        <i class="fas fa-arrow-left"></i>
+        <span class="sr-only">Retour</span>
+    </a>
+    <div class=" row no-padding">
+        <p class="alert alert-warning d-flex justify-content-center"><b>There are <strong
+                        style="color:#ff9966;">{{ cart_items|length }}</strong> products in total!</b></p>
+    </div>
+
+    {% for message in app.flashes('edited') %}
+        <div class="alert alert-success col no-padding">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {% for message in app.flashes('danger') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    {% if cart_items %}
+        <table id="cart_items" class="table table-striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Picture</th> <!-- Nouvelle colonne pour l'image -->
+                <th>Quantity</th>
+                <th>Total</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cart_item in cart_items %}
+                <tr>
+                    <td>{{ cart_item.product.name }}</td>
+                    <td><img src="{{ asset(cart_item.product.imgPath) }}" width="50" height="50"></td>
+                    <!-- Affichage de l'image -->
+                    <td>{{ cart_item.quantity }}</td>
+                    <td>{{ cart_item.product.price }} × {{ cart_item.quantity }} = {{ cart_item.product.price*cart_item.quantity }} dh</td>
+                    <td>
+                        <a href="/cart/delete/{{ cart_item.id }}" class="btn btn-danger"
+                           onclick="return confirm('Do you want to delete {{ cart_item.product.name }}?')">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="d-flex justify-content-end">
+            <div class="m-1">
+                <a href="/cart/empty" class="btn btn-danger" onclick="return confirm('Do you want to empty your cart?')">Empty cart</a>
+            </div>
+            <div class="m-1">
+                <a href="/cart/checkout" class="btn btn-success">Checkout</a>
+            </div>
+        </div>
+    {% else %}
+        <p>Aucun produit</p>
+    {% endif %}
+{% endblock %}

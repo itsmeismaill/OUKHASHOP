@@ -2,20 +2,22 @@
 
 
 {% block body %}
-<a href="#" onclick="history.back();" class="btn">
-  <i class="fas fa-arrow-left"></i>
-  <span class="sr-only">Retour</span>
-</a>
-<style>
-.card-img-top:hover {
-  transform: scale(1.1);
-  transition: transform 0.3s ease-in-out;
-}
-
- 
-</style>
+    <a href="#" onclick="history.back();" class="btn">
+        <i class="fas fa-arrow-left"></i>
+        <span class="sr-only">Retour</span>
+    </a>
+    <style>
+        .card-img-top:hover {
+            transform: scale(1.1);
+            transition: transform 0.3s ease-in-out;
+        }
+    </style>
 
 
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6 col-xl-4">
+                <div class="card text-black">
   <div class="container py-5">
     <div class="row justify-content-center">
       <div class="col-md-8 col-lg-6 col-xl-4">
@@ -36,10 +38,7 @@
             <div class="d-flex justify-content-between total font-weight-bold mt-4">
               <span>Price</span><span>{{product.price}} Dhs</span>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
-</section>
+    </section>
 {% endblock %}
