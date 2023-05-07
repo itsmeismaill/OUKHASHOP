@@ -16,18 +16,16 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class ProductController extends AbstractController
 {
     #[Route('/product', name: 'app_product')]
     public function index(EntityManagerInterface $entitymanager): Response
     {
-        $products = $entitymanager->getRepository(Product::class)->findBy(['user' => $this->getUser()]);
-        if (!$products) {
-            throw $this->createNotFoundException(
-                'No product found in the our DATABASE !'
-            );
-        }
+        $products=$entitymanager->getRepository(Product::class)->findBy(['user'=>$this->getUser()]);
 
         return $this->render('product\index.html.twig', [
             'products' => $products,
@@ -40,11 +38,6 @@ class ProductController extends AbstractController
     public function indexb(EntityManagerInterface $entityManager): Response
     {
         $products = $entityManager->getRepository(Product::class)->findAll();
-        if (!$products) {
-            throw $this->createNotFoundException(
-                'No products found in the database!'
-            );
-        }
         $productsWithUser = [];
         foreach ($products as $product) {
             $user = $product->getUser();
@@ -61,26 +54,69 @@ class ProductController extends AbstractController
         ]);
     }
 
+    #[Route('/product/new', name:'new_product', methods:['GET','POST'])]
+ public function new(Request $request,EntityManagerInterface $entityManager ,SluggerInterface $slugger) {
+    $product = new Product();
+    $form = $this->createForm(ProductType::class, $product);
+    $form->handleRequest($request);
+    if($form->isSubmitted() && $form->isValid()) {
+                    /** @var UploadedFile $brochureFile */
+                    $brochureFile = $form->get('brochure')->getData();
 
-    #[Route('/product/new', name: 'new_product', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager)
-    {
-        $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $product = $form->getData();
-            $product->setUser($this->getUser());
-            $entityManager->persist($product);
-            $entityManager->flush();
-            $this->addFlash(
-                'success',
-                'The product ' . $product->getname() . ' was Created successfully!'
-            );
+                    // this condition is needed because the 'brochure' field is not required
+                    // so the PDF file must be processed only when a file is uploaded
+                    if ($brochureFile) {
+                        $originalFilename = pathinfo($brochureFile->getClientOriginalName(), PATHINFO_FILENAME);
+                        // this is needed to safely include the file name as part of the URL
+                        $safeFilename = $slugger->slug($originalFilename);
+                        $newFilename = $safeFilename.'-'.uniqid().'.'.$brochureFile->guessExtension();
+        
+                        // Move the file to the directory where brochures are stored
+                        try {
+                            $brochureFile->move(
+                                $this->getParameter('brochures_directory'),
+                                $newFilename
+                            );
+                        } catch (FileException $e) {
+                            $this->addFlash(
+                                'danger',
+                                'file not accepted!'
+                             );
+                        }
+        
+                        // updates the 'brochureFilename' property to store the PDF file name
+                        // instead of its contents
+                        $product->setBrochureFilename($newFilename);
+                    }
+    $product = $form->getData();
+    $product->setUser($this->getUser());
+    $entityManager->persist($product);
+    $entityManager->flush();
+    $this->addFlash(
+        'success',
+        'The product '.$product->getname().' was Created successfully!'
+     );
+   
+    return $this->redirectToRoute('app_product');
+    }
+    return $this->render('product/new.html.twig',['form' => $form->createView()]);
+    }
+    #[Route('/product/edit/{id}', name:'edit_product', methods:['GET','POST'])]
+ public function edit(Request $request,EntityManagerInterface $entityManager,Product $product) {
+    $form = $this->createForm(ProductType::class,$product);
+    $form->handleRequest($request);
+    if($form->isSubmitted() && $form->isValid()) {
+    $product = $form->getData();
+    $product->setUser($this->getUser());
+    $entityManager->persist($product);
+    $entityManager->flush();
+    $this->addFlash(
+        'edited',
+        'The product '.$product->getname().' was Edited successfully!'
+     );
+   
+    return $this->redirectToRoute('app_product');
 
-            return $this->redirectToRoute('app_product');
-        }
-        return $this->render('product/new.html.twig', ['form' => $form->createView()]);
     }
 
     #[Route('/product/edit/{id}', name: 'edit_product', methods: ['GET', 'POST'])]

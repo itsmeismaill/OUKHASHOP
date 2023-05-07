@@ -17,24 +17,24 @@
         <div style="color:red;"><b>{{ form_errors(form.price) }}</b></div>
     </div>
 
-    <div class="form-group">
-        {{ form_label(form.description) }}
-        {{ form_widget(form.description) }}
-        <div style="color:red;"><b>{{ form_errors(form.description) }}</b></div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.imgPath) }}
-        {{ form_widget(form.imgPath) }}
-        <div style="color:red;"><b>{{ form_errors(form.imgPath) }}</b></div>
-    </div>
-    <div class="form-group">
-        {{ form_label(form.category) }}
-        {{ form_widget(form.category) }}
-        <div style="color:red;"><b>{{ form_errors(form.category) }}</b></div>
-    </div>
-    <div class="form-group ">
-        {{ form_row(form.save) }}
-    </div>
+             <div class="form-group">
+               {{ form_label(form.description) }}
+               {{ form_widget(form.description) }}
+              <div style="color:red;"><b>{{form_errors(form.description) }}</b></div>
+              </div> 
+               <div class="form-group">
+               {{ form_label(form.brochure) }}
+               {{ form_widget(form.brochure) }}
+              <div style="color:red;"><b>{{form_errors(form.brochure) }}</b></div>
+              </div>
+              <div class="form-group">
+               {{ form_label(form.category) }}
+               {{ form_widget(form.category) }}
+              <div style="color:red;"><b>{{form_errors(form.category) }}</b></div>
+              </div>
+              <div class="form-group " >
+               {{ form_row(form.save) }}
+              </div>
 
     {{ form_end(form) }}
     </div >
